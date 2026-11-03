@@ -1,0 +1,32 @@
+SESSION18
+Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe
+
+Tên lớp: HCM K26 CNTT2
+Môn học: Nhập môn công nghệ thông tin
+Họ và tên: LƯƠNG THANH THƯ
+
+Phần 1. Phân tích
+Định vị lỗi: Nhấn F12, bấm biểu tượng mũi tên (Inspect), click vào khung “Thông tin tài xế” để tab Elements tô sáng thẻ lỗi trong DOM Tree (ví dụ <div class="driver-info">).
+Box Model hiện tại (tab Computed, số giả định):
+Content: 300 x 120
+Padding: 16
+Border: 1
+Margin-bottom: -40 (số âm)
+Nguyên nhân: Margin âm kéo khung “Danh sách trạm” lên đè, và chiều cao cố định 120px làm nội dung tràn ra ngoài.
+
+Phần 2. Triển khai
+Chỉ sửa trong tab Styles của DevTools, không sửa file gốc:
+
+css
+.driver-info {
+  margin-bottom: 24px;
+  height: auto;
+  box-sizing: border-box;
+}
+Margin dương 24px tách hai khung, height tự giãn theo nội dung nên hết chồng lấn.
+
+Phần 3. Kiểm thử
+Nếu đổi Margin mà phần tử vẫn không di chuyển, kiểm tra xem có thuộc tính nào ghi đè ở Browser Engine không:
+Tab Styles: dòng bị gạch ngang nghĩa là rule bị ghi đè (do độ ưu tiên cao hơn hoặc !important).
+Tab Computed: tick “Show all”, kiểm tra position (absolute/fixed), float, display (inline thì margin trên/dưới vô hiệu).
+Bỏ tick từng rule để xem rule nào gây ra lỗi.
